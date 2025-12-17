@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Browse through our collection of API endpoints. Find what you need or discover something new.">
-    <meta name="theme-color" content="#1a202c">
+    <meta name="theme-color" content="#3b82f6">
     <title>Riyan Official API</title>
     <link rel="icon" href="/src/icon.png" type="image/png">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -15,7 +15,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
@@ -31,18 +30,34 @@
     </script>
 
     <style>
+        :root {
+            --primary-blue: #3b82f6;
+            --light-blue: #60a5fa;
+            --dark-blue: #1d4ed8;
+            --bg-white: #ffffff;
+            --card-bg: #f8fafc;
+            --text-dark: #1e293b;
+            --text-gray: #64748b;
+            --border-color: #e2e8f0;
+        }
+        
+        body {
+            background: var(--bg-white);
+            color: var(--text-dark);
+        }
         
         .glass {
             backdrop-filter: blur(16px) saturate(180%);
-            background: rgba(23, 25, 35, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.125);
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
         
         .loader {
             width: 28px;
             height: 28px;
-            border: 2px solid #4a5568;
-            border-top: 2px solid #e2e8f0;
+            border: 2px solid #cbd5e1;
+            border-top: 2px solid var(--primary-blue);
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
@@ -52,20 +67,21 @@
         }
         
         .gradient-text {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         
         .btn-gradient {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
             transition: all 0.3s ease;
+            color: white;
         }
         
         .btn-gradient:hover {
             transform: translateY(-1px);
-            box-shadow: 0 10px 25px -5px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.4);
         }
         
         .method-get {
@@ -73,22 +89,25 @@
         }
         
         .method-post {
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
         }
         
         .status-ready {
             background: rgba(16, 185, 129, 0.1);
             color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.2);
         }
         
         .status-update {
             background: rgba(245, 158, 11, 0.1);
             color: #f59e0b;
+            border: 1px solid rgba(245, 158, 11, 0.2);
         }
         
         .status-error {
             background: rgba(239, 68, 68, 0.1);
             color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.2);
         }
         
         .blink {
@@ -97,7 +116,7 @@
         
         @keyframes blink {
             0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+            50% { opacity: 0.7; }
         }
         
         /* Transition for expand/collapse */
@@ -108,10 +127,13 @@
         /* Copy button styles */
         .copy-btn {
             transition: all 0.2s ease;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
         }
         
         .copy-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(59, 130, 246, 0.1);
+            border-color: var(--primary-blue);
         }
                         
         
@@ -120,8 +142,8 @@
             position: fixed;
             bottom: 80px;
             right: 20px;
-            background: rgba(23, 25, 35, 0.9);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid var(--border-color);
             border-radius: 8px;
             padding: 12px 16px;
             font-size: 0.80rem;
@@ -132,12 +154,8 @@
             animation: slideIn 0.3s ease;
             backdrop-filter: blur(10px);
             max-width: 300px;
-        }
-        
-        .light .toast {
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            color: #1e293b;
+            color: var(--text-dark);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
         }
         
         @keyframes slideIn {
@@ -151,22 +169,6 @@
             }
         }
         
-        /* Light mode styles */
-        .light {
-            background: #f8fafc;
-            color: #1e293b;
-        }
-        
-        .light .glass {
-            background: rgba(255, 255, 255, 0.85);
-            border: 1px solid rgba(0, 0, 0, 0.125);
-        }
-        
-        .light .loader {
-            border: 2px solid #cbd5e1;
-            border-top: 2px solid #475569;
-        }
-        
         /* Media display styles */
         .response-media-container {
             min-height: 300px;
@@ -175,6 +177,9 @@
             align-items: flex-start;
             justify-content: center;
             width: 100%;
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 16px;
         }
 
         /* Video full size */
@@ -202,139 +207,182 @@
         .response-media-container .error-container {
             padding: 2rem;
             text-align: center;
+            color: var(--text-gray);
         }
         
         /* Search highlight */
         .highlight {
-            background-color: rgba(245, 158, 11, 0.2);
+            background-color: rgba(59, 130, 246, 0.2);
+            color: var(--dark-blue);
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+        
+        .charging {
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        /* Clock smooth transition */
+        .clock-digit {
+            transition: all 0.3s ease;
+        }
+        
+        /* Battery level colors */
+        .battery-high {
+            color: #10b981;
+        }
+        
+        .battery-medium {
             color: #f59e0b;
         }
         
-            .charging {
-        animation: pulse 1.5s infinite;
-    }
-    
-    @keyframes pulse {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.5; }
-    }
-    
-    /* Clock smooth transition */
-    .clock-digit {
-        transition: all 0.3s ease;
-    }
-    
-    /* Battery level colors */
-    .battery-high {
-        color: #10b981;
-    }
-    
-    .battery-medium {
-        color: #f59e0b;
-    }
-    
-    .battery-low {
-        color: #ef4444;
-    }
-    
-    /* Card hover effects */
-    .stat-card {
-        transition: transform 0.3s ease, border-color 0.3s ease;
-    }
-    
-    .stat-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
-    }
+        .battery-low {
+            color: #ef4444;
+        }
+        
+        /* Card hover effects */
+        .stat-card {
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.1);
+            border-color: var(--primary-blue);
+        }
+
+        /* API Card Styling */
+        .api-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .api-card:hover {
+            border-color: var(--primary-blue);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+        }
+
+        /* Navbar */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* Input styling */
+        input, select, textarea {
+            background: var(--bg-white);
+            border: 1px solid var(--border-color);
+            color: var(--text-dark);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary-blue);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            color: var(--text-gray);
+        }
     </style>
 </head>
-<body class="bg-gray-900 text-slate-300 antialiased font-mono min-h-screen">
+<body class="antialiased font-mono min-h-screen">
     
     <!-- Loading Screen -->
-    <div id="loadingScreen" class="fixed inset-0 bg-gray-900 flex items-center justify-center z-50">
+    <div id="loadingScreen" class="fixed inset-0 bg-white flex items-center justify-center z-50">
         <div class="text-center">
             <div class="loader mx-auto mb-4"></div>
-            <p class="text-slate-400 text-s">Loading ...</p>
+            <p class="text-gray-600 text-sm">Loading ...</p>
         </div>
     </div>
 
     <main class="max-w-2xl mx-auto px-8 py-16">
-<!-- Minimal Navbar -->
-<div class="fixed top-0 left-0 right-0 z-49 bg-gray-900/95 backdrop-blur-md border-b border-gray-800">
-    <div class="max-w-6xl mx-auto px-4">
-        <div class="flex items-center justify-between h-12">
-            <!-- Logo -->
-            <div class="flex items-center gap-2">
-                <div class="flex items-center gap-2">
-                    <span class="flex items-center gap-1 px-3 rounded-full bg-green-500/10 text-green-400 text-[13px] blink">
-                        <i class="fas fa-circle text-[6px]"></i>
-                        <span>Online</span>
-                    </span>
+        <!-- Minimal Navbar -->
+        <div class="navbar fixed top-0 left-0 right-0 z-40">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="flex items-center justify-between h-12">
+                    <!-- Logo -->
+                    <div class="flex items-center gap-2">
+                        <div class="flex items-center gap-2">
+                            <span class="flex items-center gap-1 px-3 rounded-full bg-blue-100 text-blue-600 text-[13px] blink">
+                                <i class="fas fa-circle text-[6px]"></i>
+                                <span>Online</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Information Link -->
+                    <a id="contactLink" href="https://wa.me/6285715989482" 
+                       target="_blank" 
+                       class="text-[13px] text-gray-700 hover:text-blue-600 flex items-center gap-1 px-3 hover:gap-2 transition-all duration-200">
+                        <i class="fab fa-whatsapp text-green-500"></i>
+                        <span>Information Api</span>
+                    </a>
                 </div>
-
             </div>
-
-            <!-- Information Link -->
-            <a id="contactLink" href="https://wa.me/6285715989482" 
-               target="_blank" 
-               class="text-[13px] text-slate-300 hover:text-white flex items-center gap-1 px-3 hover:gap-2 transition-all duration-200">
-                <i class="fab fa-whatsapp text-green-400"></i>
-                <span>Information Api</span>
-            </a>
         </div>
-    </div>
-</div>
 
-<!-- Spacer -->
-<div class="h-6"></div>
+        <!-- Spacer -->
+        <div class="h-6"></div>
+        
         <!-- Header -->
         <div class="text-left mb-8">
             <div class="flex items-center gap-4 mb-4">
-                <div class="w-12 md:w-10 h-12 md:h-10 rounded-lg bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center">
+                <div class="w-12 md:w-10 h-12 md:h-10 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
                     <i class="fas fa-code text-white text-lg"></i>
                 </div>
                 <h1 id="titleApi" class="text-3xl md:text-4xl font-bold gradient-text">Riyan Official API</h1>
             </div>
-            <p id="descApi" class="text-slate-400 text-[14px] mx-auto mb-2">
+            <p id="descApi" class="text-gray-600 text-[14px] mx-auto mb-2">
                 Welcome to Riyan Official API documentation. This interactive interface allows you to explore and test our complete collection of API endpoints in real-time.
             </p>
-            
         </div>
         
-<!-- Stats Panel -->
-<div class="mb-12">
-    <div class="flex gap-5">
-        <!-- Total Endpoints -->
-        <div class="text-center flex-1">
-            <div class="text-2xl font-bold text-white" id="totalApis">0</div>
-            <div class="text-[13px] text-slate-400">Endpoints</div>
-        </div>
+        <!-- Stats Panel -->
+        <div class="mb-12">
+            <div class="flex gap-5">
+                <!-- Total Endpoints -->
+                <div class="text-center flex-1 stat-card rounded-lg p-4">
+                    <div class="text-2xl font-bold text-gray-800" id="totalApis">0</div>
+                    <div class="text-[13px] text-gray-500">Endpoints</div>
+                </div>
 
-        <!-- Total Categories -->
-        <div class="text-center flex-1">
-            <div class="text-2xl font-bold text-white" id="totalCategories">0</div>
-            <div class="text-[13px] text-slate-400">Categories</div>
-        </div>
+                <!-- Total Categories -->
+                <div class="text-center flex-1 stat-card rounded-lg p-4">
+                    <div class="text-2xl font-bold text-gray-800" id="totalCategories">0</div>
+                    <div class="text-[13px] text-gray-500">Categories</div>
+                </div>
 
-        <!-- Battery Status -->
-        <div class="text-center flex-1">
-            <div class="text-2xl font-bold text-white" id="batteryLevel">100%</div>
-            <div class="text-[13px] text-slate-400">Battery</div>
+                <!-- Battery Status -->
+                <div class="text-center flex-1 stat-card rounded-lg p-4">
+                    <div class="text-2xl font-bold text-gray-800" id="batteryLevel">100%</div>
+                    <div class="text-[13px] text-gray-500">Battery</div>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
         <!-- Search Bar -->
         <div class="flex items-center justify-between mb-4">
             <div class="flex-1 relative">
                 <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
-                    <span class="material-icons text-gray-500 text-lg">search</span>
+                    <span class="material-icons text-gray-400 text-lg">search</span>
                 </div>
                 <input 
                     type="text" 
                     id="searchInput" 
                     placeholder="Search API endpoints..." 
-                    class="w-full pl-12 pr-5 py-3 text-sm border border-gray-700 bg-gray-800 text-slate-300 placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                    class="w-full pl-12 pr-5 py-3 text-sm border rounded-lg bg-white text-gray-800 placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
                 >
             </div>
         </div>
@@ -343,9 +391,9 @@
         <div id="content" class="space-y-4">
             <div id="noResults" class="text-center py-16 hidden">
                 <div class="max-w-md mx-auto">
-                    <i class="fas fa-search text-2xl text-slate-500 mb-3"></i>
-                    <h3 class="text-xs text-slate-400 mb-2">No results found</h3>
-                    <p class="text-xxs text-slate-500">Try different keywords</p>
+                    <i class="fas fa-search text-2xl text-gray-400 mb-3"></i>
+                    <h3 class="text-xs text-gray-500 mb-2">No results found</h3>
+                    <p class="text-xxs text-gray-400">Try different keywords</p>
                 </div>
             </div>
 
@@ -355,8 +403,8 @@
         </div>
         
         <!-- Footer -->
-        <footer class="mt-12 pt-4 border-t border-gray-800">
-            <p id="footer" class="text-slate-400 text-[15px] text-center mx-auto">
+        <footer class="mt-12 pt-8 border-t">
+            <p id="footer" class="text-gray-500 text-[15px] text-center mx-auto">
                 © 2025 Riyan Official API • v1.0.0
             </p>
         </footer>
@@ -381,9 +429,9 @@
         
         // Update clock
         document.getElementById('realTimeClock').innerHTML = `
-            <i class="fas fa-clock text-green-400 text-xl"></i>
+            <i class="fas fa-clock text-blue-500 text-xl"></i>
             <span>${hours}:${minutes}</span>
-            <span class="text-sm text-green-400/70">${seconds}</span>
+            <span class="text-sm text-blue-400">${seconds}</span>
         `;
         
         // Update date
@@ -425,10 +473,22 @@
         // Update level
         batteryElement.textContent = `${level}%`;
         
+        // Add color based on battery level
+        if (level > 70) {
+            batteryElement.className = 'text-2xl font-bold text-green-600';
+        } else if (level > 30) {
+            batteryElement.className = 'text-2xl font-bold text-yellow-500';
+        } else {
+            batteryElement.className = 'text-2xl font-bold text-red-500';
+        }
     }
 
     // Initialize when page loads
     document.addEventListener('DOMContentLoaded', function() {
+        // Hide loading screen after 500ms
+        setTimeout(() => {
+            document.getElementById('loadingScreen').style.display = 'none';
+        }, 500);
         
         // Get battery status
         updateBatteryStatus();
@@ -436,10 +496,9 @@
         // Update battery status every 30 seconds (for demo/fallback)
         setInterval(updateBatteryStatus, 30000);
     });
-</script>
+    </script>
 
- <script src="/script.js"></script>
-
+    <script src="/script.js"></script>
 
 </body>
 </html>
