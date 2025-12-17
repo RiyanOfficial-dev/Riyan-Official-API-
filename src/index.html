@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Browse through our collection of API endpoints. Find what you need or discover something new.">
-    <meta name="theme-color" content="#0f172a">
+    <meta name="theme-color" content="#1a202c">
     <title>Riyan Official API</title>
     <link rel="icon" href="/src/icon.png" type="image/png">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -24,20 +24,6 @@
                     },
                     fontSize: {
                         'xxs': ['0.65rem', { lineHeight: '0.9rem' }]
-                    },
-                    animation: {
-                        'float': 'float 3s ease-in-out infinite',
-                        'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
-                    },
-                    keyframes: {
-                        'float': {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' }
-                        },
-                        'pulse-glow': {
-                            '0%, 100%': { opacity: 1 },
-                            '50%': { opacity: 0.7 }
-                        }
                     }
                 }
             }
@@ -51,60 +37,17 @@
             box-sizing: border-box;
         }
         
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #0f172a;
-        }
-        
-        /* Video Background */
-        #videoBackground {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            object-fit: cover;
-            z-index: -2;
-            opacity: 0.7;
-        }
-        
-        .video-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: linear-gradient(135deg, 
-                rgba(15, 23, 42, 0.95) 0%, 
-                rgba(30, 41, 59, 0.9) 50%, 
-                rgba(15, 23, 42, 0.95) 100%);
-            z-index: -1;
-        }
-        
-        /* Glass Morphism */
         .glass {
             backdrop-filter: blur(16px) saturate(180%);
-            background: rgba(23, 25, 35, 0.75);
-            border: 1px solid rgba(96, 165, 250, 0.1);
-        }
-        
-        .glass-card {
-            backdrop-filter: blur(12px);
-            background: rgba(30, 41, 59, 0.7);
-            border: 1px solid rgba(96, 165, 250, 0.15);
-            border-radius: 12px;
-        }
-        
-        .glass-card:hover {
-            border-color: rgba(96, 165, 250, 0.3);
-            box-shadow: 0 8px 32px rgba(96, 165, 250, 0.1);
+            background: rgba(23, 25, 35, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.125);
         }
         
         .loader {
             width: 28px;
             height: 28px;
             border: 2px solid #4a5568;
-            border-top: 2px solid #60a5fa;
+            border-top: 2px solid #3b82f6;
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
@@ -114,20 +57,20 @@
         }
         
         .gradient-text {
-            background: linear-gradient(135deg, #60a5fa 0%, #38bdf8 50%, #22d3ee 100%);
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         
         .btn-gradient {
-            background: linear-gradient(135deg, #60a5fa 0%, #38bdf8 100%);
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
             transition: all 0.3s ease;
         }
         
         .btn-gradient:hover {
             transform: translateY(-1px);
-            box-shadow: 0 10px 25px -5px rgba(96, 165, 250, 0.4);
+            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.4);
         }
         
         .method-get {
@@ -139,21 +82,21 @@
         }
         
         .status-ready {
-            background: rgba(16, 185, 129, 0.15);
+            background: rgba(16, 185, 129, 0.1);
             color: #10b981;
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            border: 1px solid rgba(16, 185, 129, 0.2);
         }
         
         .status-update {
-            background: rgba(245, 158, 11, 0.15);
+            background: rgba(245, 158, 11, 0.1);
             color: #f59e0b;
-            border: 1px solid rgba(245, 158, 11, 0.3);
+            border: 1px solid rgba(245, 158, 11, 0.2);
         }
         
         .status-error {
-            background: rgba(239, 68, 68, 0.15);
+            background: rgba(239, 68, 68, 0.1);
             color: #ef4444;
-            border: 1px solid rgba(239, 68, 68, 0.3);
+            border: 1px solid rgba(239, 68, 68, 0.2);
         }
         
         .blink {
@@ -162,7 +105,7 @@
         
         @keyframes blink {
             0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
+            50% { opacity: 0.5; }
         }
         
         .expand-transition {
@@ -171,20 +114,19 @@
         
         .copy-btn {
             transition: all 0.2s ease;
-            backdrop-filter: blur(10px);
         }
         
         .copy-btn:hover {
-            background: rgba(96, 165, 250, 0.2);
-            border-color: rgba(96, 165, 250, 0.5);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(59, 130, 246, 0.5);
         }
         
         .toast {
             position: fixed;
             bottom: 80px;
             right: 20px;
-            background: rgba(30, 41, 59, 0.95);
-            border: 1px solid rgba(96, 165, 250, 0.2);
+            background: rgba(23, 25, 35, 0.9);
+            border: 1px solid rgba(59, 130, 246, 0.2);
             border-radius: 8px;
             padding: 12px 16px;
             font-size: 0.80rem;
@@ -195,8 +137,6 @@
             animation: slideIn 0.3s ease;
             backdrop-filter: blur(10px);
             max-width: 300px;
-            color: #e2e8f0;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
         
         @keyframes slideIn {
@@ -217,8 +157,6 @@
             align-items: flex-start;
             justify-content: center;
             width: 100%;
-            background: rgba(15, 23, 42, 0.5);
-            border-radius: 8px;
         }
 
         .response-media-container video {
@@ -242,14 +180,11 @@
         .response-media-container .error-container {
             padding: 2rem;
             text-align: center;
-            color: #94a3b8;
         }
         
         .highlight {
-            background-color: rgba(245, 158, 11, 0.3);
-            color: #fbbf24;
-            padding: 0 2px;
-            border-radius: 2px;
+            background-color: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
         }
         
         .charging {
@@ -258,102 +193,99 @@
         
         @keyframes pulse {
             0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
+            50% { opacity: 0.5; }
         }
         
         .stat-card {
             transition: transform 0.3s ease, border-color 0.3s ease;
-            backdrop-filter: blur(10px);
-            background: rgba(30, 41, 59, 0.7);
-            border: 1px solid rgba(96, 165, 250, 0.1);
-            border-radius: 12px;
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
         }
         
         .stat-card:hover {
             transform: translateY(-2px);
-            border-color: rgba(96, 165, 250, 0.3);
-            box-shadow: 0 10px 25px -5px rgba(96, 165, 250, 0.2);
+            border-color: rgba(59, 130, 246, 0.3);
         }
         
-        /* Category card styles */
-        .category-group {
-            background: rgba(30, 41, 59, 0.7);
-            border: 1px solid rgba(96, 165, 250, 0.1);
+        /* Video Banner Styles */
+        .video-banner-container {
+            width: 100%;
+            height: 200px;
             border-radius: 12px;
             overflow: hidden;
-            backdrop-filter: blur(10px);
+            margin-bottom: 2rem;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
         
-        /* API item hover effect */
-        .api-item:hover {
-            background: rgba(96, 165, 250, 0.05);
+        .video-banner {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         
-        /* Input styling for dark mode */
-        input, select, textarea {
-            background: rgba(15, 23, 42, 0.7);
-            border: 1px solid rgba(96, 165, 250, 0.2);
-            color: #e2e8f0;
-            backdrop-filter: blur(10px);
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, 
+                rgba(15, 23, 42, 0.7) 0%,
+                rgba(15, 23, 42, 0.9) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        input:focus, select:focus, textarea:focus {
-            border-color: rgba(96, 165, 250, 0.5);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
+        .banner-content {
+            text-align: center;
+            padding: 1rem;
         }
         
         /* Custom scrollbar */
         ::-webkit-scrollbar {
-            width: 10px;
+            width: 8px;
         }
         
         ::-webkit-scrollbar-track {
             background: rgba(15, 23, 42, 0.5);
-            border-radius: 5px;
+            border-radius: 4px;
         }
         
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #60a5fa, #38bdf8, #22d3ee);
-            border-radius: 5px;
+            background: #3b82f6;
+            border-radius: 4px;
         }
         
         ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, #38bdf8, #22d3ee, #2dd4bf);
+            background: #60a5fa;
         }
         
-        /* Neon glow for online status */
-        .online-glow {
-            box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
-        }
-        
-        /* Floating animation for hero */
-        .floating {
-            animation: float 3s ease-in-out infinite;
-        }
-        
-        /* Responsive */
+        /* Mobile responsive */
         @media (max-width: 768px) {
-            #videoBackground {
-                height: 100vh;
-                object-fit: cover;
+            .video-banner-container {
+                height: 150px;
+                margin-bottom: 1.5rem;
             }
             
-            .glass-card {
-                margin: 1rem;
-                padding: 1.5rem;
+            .stat-card {
+                padding: 0.75rem;
             }
+        }
+        
+        /* Neon effect for title */
+        .neon-glow {
+            text-shadow: 
+                0 0 5px rgba(59, 130, 246, 0.5),
+                0 0 10px rgba(59, 130, 246, 0.3),
+                0 0 15px rgba(59, 130, 246, 0.2);
         }
     </style>
 </head>
-<body class="text-slate-300 antialiased font-mono min-h-screen">
-    
-    <!-- Video Background -->
-    <video id="videoBackground" autoplay muted loop playsinline>
-        <source src="https://files.catbox.moe/fjgi2w.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-    <div class="video-overlay"></div>
+<body class="bg-gray-900 text-slate-300 antialiased font-mono min-h-screen">
     
     <!-- Loading Screen -->
     <div id="loadingScreen" class="fixed inset-0 bg-gray-900 flex items-center justify-center z-50">
@@ -363,19 +295,31 @@
         </div>
     </div>
 
-    <main class="relative z-10 max-w-4xl mx-auto px-4 py-16">
+    <main class="max-w-4xl mx-auto px-4 py-8">
+        <!-- Video Banner -->
+        <div class="video-banner-container">
+            <video class="video-banner" autoplay muted loop playsinline>
+                <source src="https://files.catbox.moe/fjgi2w.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="video-overlay">
+                <div class="banner-content">
+                    <h1 class="text-2xl md:text-3xl font-bold gradient-text mb-2 neon-glow">Riyan Official API</h1>
+                    <p class="text-sm text-slate-300">Simple and Easy-to-Use API Documentation</p>
+                </div>
+            </div>
+        </div>
+
         <!-- Minimal Navbar -->
-        <div class="fixed top-0 left-0 right-0 z-49 glass border-b border-gray-800">
+        <div class="glass fixed top-0 left-0 right-0 z-49 border-b border-gray-800">
             <div class="max-w-6xl mx-auto px-4">
                 <div class="flex items-center justify-between h-12">
                     <!-- Logo -->
                     <div class="flex items-center gap-2">
-                        <div class="flex items-center gap-2">
-                            <span class="flex items-center gap-1 px-3 rounded-full bg-green-500/20 text-green-400 text-[13px] online-glow">
-                                <i class="fas fa-circle text-[6px] animate-pulse"></i>
-                                <span>Online</span>
-                            </span>
-                        </div>
+                        <span class="flex items-center gap-1 px-3 rounded-full bg-green-500/10 text-green-400 text-[13px] blink">
+                            <i class="fas fa-circle text-[6px]"></i>
+                            <span>Online</span>
+                        </span>
                     </div>
 
                     <!-- Information Link -->
@@ -393,50 +337,50 @@
         <div class="h-6"></div>
         
         <!-- Header -->
-        <div class="text-center mb-8 glass-card p-8">
-            <div class="flex items-center justify-center gap-4 mb-4">
-                <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center floating">
-                    <i class="fas fa-code text-white text-2xl"></i>
+        <div class="text-left mb-8">
+            <div class="flex items-center gap-4 mb-4">
+                <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-600 to-blue-500 flex items-center justify-center">
+                    <i class="fas fa-code text-white text-lg"></i>
                 </div>
-                <h1 id="titleApi" class="text-4xl font-bold gradient-text">Riyan Official API</h1>
+                <h1 id="titleApi" class="text-3xl md:text-4xl font-bold gradient-text">Riyan Official API</h1>
             </div>
-            <p id="descApi" class="text-slate-400 text-lg mb-6 mx-auto max-w-2xl">
+            <p id="descApi" class="text-slate-400 text-[14px] mx-auto mb-2">
                 Welcome to Riyan Official API documentation. This interactive interface allows you to explore and test our complete collection of API endpoints in real-time.
             </p>
-            
-            <!-- Stats Panel -->
-            <div class="mb-6">
-                <div class="flex gap-6 justify-center">
-                    <!-- Total Endpoints -->
-                    <div class="text-center flex-1 max-w-[120px]">
-                        <div class="stat-card p-4">
-                            <div class="text-3xl font-bold gradient-text" id="totalApis">0</div>
-                            <div class="text-sm text-slate-400 mt-1">Endpoints</div>
-                        </div>
+        </div>
+        
+        <!-- Stats Panel -->
+        <div class="mb-8">
+            <div class="flex gap-4">
+                <!-- Total Endpoints -->
+                <div class="text-center flex-1">
+                    <div class="stat-card">
+                        <div class="text-2xl font-bold text-white" id="totalApis">40</div>
+                        <div class="text-[13px] text-slate-400 mt-1">Endpoints</div>
                     </div>
+                </div>
 
-                    <!-- Total Categories -->
-                    <div class="text-center flex-1 max-w-[120px]">
-                        <div class="stat-card p-4">
-                            <div class="text-3xl font-bold gradient-text" id="totalCategories">0</div>
-                            <div class="text-sm text-slate-400 mt-1">Categories</div>
-                        </div>
+                <!-- Total Categories -->
+                <div class="text-center flex-1">
+                    <div class="stat-card">
+                        <div class="text-2xl font-bold text-white" id="totalCategories">7</div>
+                        <div class="text-[13px] text-slate-400 mt-1">Categories</div>
                     </div>
+                </div>
 
-                    <!-- Battery Status -->
-                    <div class="text-center flex-1 max-w-[120px]">
-                        <div class="stat-card p-4">
-                            <div class="text-3xl font-bold gradient-text" id="batteryLevel">100%</div>
-                            <div class="text-sm text-slate-400 mt-1">Battery</div>
-                        </div>
+                <!-- Battery Status -->
+                <div class="text-center flex-1">
+                    <div class="stat-card">
+                        <div class="text-2xl font-bold text-white" id="batteryLevel">70%</div>
+                        <div class="text-[13px] text-slate-400 mt-1">Battery</div>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Search Bar -->
-        <div class="mb-8">
-            <div class="relative">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex-1 relative">
                 <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
                     <span class="material-icons text-gray-500 text-lg">search</span>
                 </div>
@@ -444,40 +388,69 @@
                     type="text" 
                     id="searchInput" 
                     placeholder="Search through all API endpoints..." 
-                    class="w-full pl-12 pr-5 py-4 text-sm border glass-card rounded-lg text-slate-300 placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+                    class="w-full pl-12 pr-5 py-3 text-sm border border-gray-700 bg-gray-800 text-slate-300 placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 rounded-lg"
                 >
             </div>
         </div>
 
         <!-- API Content -->
-        <div id="content" class="space-y-6">
+        <div id="content" class="space-y-4">
             <div id="noResults" class="text-center py-16 hidden">
                 <div class="max-w-md mx-auto">
                     <i class="fas fa-search text-2xl text-slate-500 mb-3"></i>
-                    <h3 class="text-sm text-slate-400 mb-2">No results found</h3>
-                    <p class="text-xs text-slate-500">Try different keywords or browse categories</p>
+                    <h3 class="text-xs text-slate-400 mb-2">No results found</h3>
+                    <p class="text-xxs text-slate-500">Try different keywords</p>
                 </div>
             </div>
 
-            <div id="apiList" class="space-y-6">
-                <!-- API list will be loaded here dynamically by script.js -->
+            <div id="apiList" class="space-y-3">
+                <!-- API list will be loaded here dynamically from script.js -->
+                
+                <!-- Sample: Downloader Category -->
+                <div class="category-group">
+                    <div class="mb-2">
+                        <div class="glass rounded-lg overflow-hidden">
+                            <button onclick="toggleCategory(0)" class="w-full px-4 py-3 text-left flex items-center justify-between hover:bg-gray-700/50 transition-colors duration-150">
+                                <h2 class="font-bold flex items-center">
+                                    <span class="material-icons text-lg mr-3 text-gray-400">folder</span>
+                                    <span class="truncate max-w-xs text-sm">Downloader</span>
+                                    <span class="ml-2 text-xs text-gray-500">(13)</span>
+                                </h2>
+                                <span class="material-icons transition-transform duration-150">expand_more</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sample: Image Creator Category -->
+                <div class="category-group">
+                    <div class="mb-2">
+                        <div class="glass rounded-lg overflow-hidden">
+                            <button onclick="toggleCategory(1)" class="w-full px-4 py-3 text-left flex items-center justify-between hover:bg-gray-700/50 transition-colors duration-150">
+                                <h2 class="font-bold flex items-center">
+                                    <span class="material-icons text-lg mr-3 text-gray-400">image</span>
+                                    <span class="truncate max-w-xs text-sm">Image Creator</span>
+                                    <span class="ml-2 text-xs text-gray-500">(2)</span>
+                                </h2>
+                                <span class="material-icons transition-transform duration-150">expand_more</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         
         <!-- Footer -->
-        <footer class="mt-16 pt-8 border-t border-slate-800/50">
-            <p id="footer" class="text-slate-400 text-center mx-auto">
-                © 2025 Riyan Official API • v2.0.0
+        <footer class="mt-12 pt-4 border-t border-gray-800">
+            <p id="footer" class="text-slate-400 text-[15px] text-center mx-auto">
+                © 2025 Riyan Official API • v1.0.0
             </p>
             <p class="text-xs text-slate-500 text-center mt-2">
-                Powered by cutting-edge technology with premium video background
+                For seamless WhatsApp Bot integration
             </p>
         </footer>
     </main>
-
-    <!-- Toast Container (for script.js) -->
-    <div id="toastContainer"></div>
-
+    
     <!-- Battery Status Script -->
     <script>
     // Battery Status Function
@@ -495,8 +468,9 @@
                 });
             });
         } else {
-            const batteryLevel = Math.floor(Math.random() * 100) + 1;
-            updateBatteryUI(batteryLevel, true);
+            // Fallback for browsers that don't support Battery API
+            const batteryLevel = 70; // Default 70%
+            updateBatteryUI(batteryLevel, false);
         }
     }
 
@@ -513,11 +487,14 @@
             
             // Update color based on level
             if (level > 70) {
-                batteryElement.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+                batteryElement.classList.remove('text-yellow-500', 'text-red-500');
+                batteryElement.classList.add('text-green-500');
             } else if (level > 30) {
-                batteryElement.style.background = 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)';
+                batteryElement.classList.remove('text-green-500', 'text-red-500');
+                batteryElement.classList.add('text-yellow-500');
             } else {
-                batteryElement.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+                batteryElement.classList.remove('text-green-500', 'text-yellow-500');
+                batteryElement.classList.add('text-red-500');
             }
         }
     }
@@ -530,17 +507,43 @@
         // Update battery status every 30 seconds
         setInterval(updateBatteryStatus, 30000);
         
-        // Handle video background
-        const video = document.getElementById('videoBackground');
-        if (video) {
-            video.play().catch(e => {
-                console.log("Video autoplay prevented, showing fallback");
+        // Handle video banner
+        const videoBanner = document.querySelector('.video-banner');
+        if (videoBanner) {
+            videoBanner.play().catch(e => {
+                console.log("Video autoplay prevented, using fallback");
             });
         }
+        
+        // Hide loading screen
+        setTimeout(() => {
+            const loadingScreen = document.getElementById('loadingScreen');
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 500);
+        }, 1000);
     });
+
+    // Function to toggle category (sample)
+    function toggleCategory(index) {
+        const categories = document.querySelectorAll('.category-group .glass');
+        const category = categories[index];
+        const icon = category.querySelector('.material-icons:last-child');
+        
+        if (category.style.maxHeight && category.style.maxHeight !== '0px') {
+            category.style.maxHeight = '0px';
+            category.style.overflow = 'hidden';
+            icon.textContent = 'expand_more';
+        } else {
+            category.style.maxHeight = '500px';
+            category.style.overflow = 'auto';
+            icon.textContent = 'expand_less';
+        }
+    }
     </script>
 
-    <!-- Your existing script.js -->
+    <!-- Main script -->
     <script src="/script.js"></script>
 
 </body>
