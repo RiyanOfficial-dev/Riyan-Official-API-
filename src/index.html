@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Browse through our collection of API endpoints. Find what you need or discover something new.">
-    <meta name="theme-color" content="#3b82f6">
+    <meta name="theme-color" content="#0f172a">
     <title>Riyan Official API</title>
     <link rel="icon" href="/src/icon.png" type="image/png">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -15,6 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
@@ -23,6 +24,20 @@
                     },
                     fontSize: {
                         'xxs': ['0.65rem', { lineHeight: '0.9rem' }]
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        'float': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        },
+                        'pulse-glow': {
+                            '0%, 100%': { opacity: 1 },
+                            '50%': { opacity: 0.7 }
+                        }
                     }
                 }
             }
@@ -30,34 +45,66 @@
     </script>
 
     <style>
-        :root {
-            --primary-blue: #3b82f6;
-            --light-blue: #60a5fa;
-            --dark-blue: #1d4ed8;
-            --bg-white: #ffffff;
-            --card-bg: #f8fafc;
-            --text-dark: #1e293b;
-            --text-gray: #64748b;
-            --border-color: #e2e8f0;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
         body {
-            background: var(--bg-white);
-            color: var(--text-dark);
+            font-family: 'Inter', sans-serif;
+            background: #0f172a;
         }
         
+        /* Video Background */
+        #videoBackground {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -2;
+            opacity: 0.7;
+        }
+        
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, 
+                rgba(15, 23, 42, 0.95) 0%, 
+                rgba(30, 41, 59, 0.9) 50%, 
+                rgba(15, 23, 42, 0.95) 100%);
+            z-index: -1;
+        }
+        
+        /* Glass Morphism */
         .glass {
             backdrop-filter: blur(16px) saturate(180%);
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            background: rgba(23, 25, 35, 0.75);
+            border: 1px solid rgba(96, 165, 250, 0.1);
+        }
+        
+        .glass-card {
+            backdrop-filter: blur(12px);
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(96, 165, 250, 0.15);
+            border-radius: 12px;
+        }
+        
+        .glass-card:hover {
+            border-color: rgba(96, 165, 250, 0.3);
+            box-shadow: 0 8px 32px rgba(96, 165, 250, 0.1);
         }
         
         .loader {
             width: 28px;
             height: 28px;
-            border: 2px solid #cbd5e1;
-            border-top: 2px solid var(--primary-blue);
+            border: 2px solid #4a5568;
+            border-top: 2px solid #60a5fa;
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
@@ -67,21 +114,20 @@
         }
         
         .gradient-text {
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+            background: linear-gradient(135deg, #60a5fa 0%, #38bdf8 50%, #22d3ee 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         
         .btn-gradient {
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+            background: linear-gradient(135deg, #60a5fa 0%, #38bdf8 100%);
             transition: all 0.3s ease;
-            color: white;
         }
         
         .btn-gradient:hover {
             transform: translateY(-1px);
-            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.4);
+            box-shadow: 0 10px 25px -5px rgba(96, 165, 250, 0.4);
         }
         
         .method-get {
@@ -89,25 +135,25 @@
         }
         
         .method-post {
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
         }
         
         .status-ready {
-            background: rgba(16, 185, 129, 0.1);
+            background: rgba(16, 185, 129, 0.15);
             color: #10b981;
-            border: 1px solid rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.3);
         }
         
         .status-update {
-            background: rgba(245, 158, 11, 0.1);
+            background: rgba(245, 158, 11, 0.15);
             color: #f59e0b;
-            border: 1px solid rgba(245, 158, 11, 0.2);
+            border: 1px solid rgba(245, 158, 11, 0.3);
         }
         
         .status-error {
-            background: rgba(239, 68, 68, 0.1);
+            background: rgba(239, 68, 68, 0.15);
             color: #ef4444;
-            border: 1px solid rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.3);
         }
         
         .blink {
@@ -119,31 +165,26 @@
             50% { opacity: 0.7; }
         }
         
-        /* Transition for expand/collapse */
         .expand-transition {
             transition: all 0.3s ease;
         }
         
-        /* Copy button styles */
         .copy-btn {
             transition: all 0.2s ease;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
         }
         
         .copy-btn:hover {
-            background: rgba(59, 130, 246, 0.1);
-            border-color: var(--primary-blue);
+            background: rgba(96, 165, 250, 0.2);
+            border-color: rgba(96, 165, 250, 0.5);
         }
-                        
         
-        /* Toast notification */
         .toast {
             position: fixed;
             bottom: 80px;
             right: 20px;
-            background: rgba(255, 255, 255, 0.95);
-            border: 1px solid var(--border-color);
+            background: rgba(30, 41, 59, 0.95);
+            border: 1px solid rgba(96, 165, 250, 0.2);
             border-radius: 8px;
             padding: 12px 16px;
             font-size: 0.80rem;
@@ -154,8 +195,8 @@
             animation: slideIn 0.3s ease;
             backdrop-filter: blur(10px);
             max-width: 300px;
-            color: var(--text-dark);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            color: #e2e8f0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
         
         @keyframes slideIn {
@@ -169,7 +210,6 @@
             }
         }
         
-        /* Media display styles */
         .response-media-container {
             min-height: 300px;
             max-height: 500px;
@@ -177,12 +217,10 @@
             align-items: flex-start;
             justify-content: center;
             width: 100%;
-            background: var(--card-bg);
+            background: rgba(15, 23, 42, 0.5);
             border-radius: 8px;
-            padding: 16px;
         }
 
-        /* Video full size */
         .response-media-container video {
             width: 100%;
             height: 100%;
@@ -190,30 +228,26 @@
             object-fit: contain;
         }
 
-        /* Image full size */
         .response-media-container img {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
         }
 
-        /* Audio player styling */
         .response-media-container audio {
             width: 100%;
             max-width: 400px;
         }
 
-        /* Error display */
         .response-media-container .error-container {
             padding: 2rem;
             text-align: center;
-            color: var(--text-gray);
+            color: #94a3b8;
         }
         
-        /* Search highlight */
         .highlight {
-            background-color: rgba(59, 130, 246, 0.2);
-            color: var(--dark-blue);
+            background-color: rgba(245, 158, 11, 0.3);
+            color: #fbbf24;
             padding: 0 2px;
             border-radius: 2px;
         }
@@ -224,99 +258,121 @@
         
         @keyframes pulse {
             0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+            50% { opacity: 0.7; }
         }
         
-        /* Clock smooth transition */
-        .clock-digit {
-            transition: all 0.3s ease;
-        }
-        
-        /* Battery level colors */
-        .battery-high {
-            color: #10b981;
-        }
-        
-        .battery-medium {
-            color: #f59e0b;
-        }
-        
-        .battery-low {
-            color: #ef4444;
-        }
-        
-        /* Card hover effects */
         .stat-card {
             transition: transform 0.3s ease, border-color 0.3s ease;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(96, 165, 250, 0.1);
+            border-radius: 12px;
         }
         
         .stat-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.1);
-            border-color: var(--primary-blue);
+            border-color: rgba(96, 165, 250, 0.3);
+            box-shadow: 0 10px 25px -5px rgba(96, 165, 250, 0.2);
         }
-
-        /* API Card Styling */
-        .api-card {
-            background: var(--bg-white);
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-        }
-
-        .api-card:hover {
-            border-color: var(--primary-blue);
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
-        }
-
-        /* Navbar */
-        .navbar {
-            background: rgba(255, 255, 255, 0.95);
+        
+        /* Category card styles */
+        .category-group {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(96, 165, 250, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-color);
         }
-
-        /* Input styling */
+        
+        /* API item hover effect */
+        .api-item:hover {
+            background: rgba(96, 165, 250, 0.05);
+        }
+        
+        /* Input styling for dark mode */
         input, select, textarea {
-            background: var(--bg-white);
-            border: 1px solid var(--border-color);
-            color: var(--text-dark);
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(96, 165, 250, 0.2);
+            color: #e2e8f0;
+            backdrop-filter: blur(10px);
         }
-
+        
         input:focus, select:focus, textarea:focus {
-            border-color: var(--primary-blue);
+            border-color: rgba(96, 165, 250, 0.5);
             outline: none;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
         }
-
-        /* Footer */
-        footer {
-            border-top: 1px solid var(--border-color);
-            color: var(--text-gray);
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #60a5fa, #38bdf8, #22d3ee);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #38bdf8, #22d3ee, #2dd4bf);
+        }
+        
+        /* Neon glow for online status */
+        .online-glow {
+            box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+        }
+        
+        /* Floating animation for hero */
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            #videoBackground {
+                height: 100vh;
+                object-fit: cover;
+            }
+            
+            .glass-card {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
-<body class="antialiased font-mono min-h-screen">
+<body class="text-slate-300 antialiased font-mono min-h-screen">
+    
+    <!-- Video Background -->
+    <video id="videoBackground" autoplay muted loop playsinline>
+        <source src="https://files.catbox.moe/fjgi2w.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="video-overlay"></div>
     
     <!-- Loading Screen -->
-    <div id="loadingScreen" class="fixed inset-0 bg-white flex items-center justify-center z-50">
+    <div id="loadingScreen" class="fixed inset-0 bg-gray-900 flex items-center justify-center z-50">
         <div class="text-center">
             <div class="loader mx-auto mb-4"></div>
-            <p class="text-gray-600 text-sm">Loading ...</p>
+            <p class="text-slate-400 text-sm">Loading ...</p>
         </div>
     </div>
 
-    <main class="max-w-2xl mx-auto px-8 py-16">
+    <main class="relative z-10 max-w-4xl mx-auto px-4 py-16">
         <!-- Minimal Navbar -->
-        <div class="navbar fixed top-0 left-0 right-0 z-40">
+        <div class="fixed top-0 left-0 right-0 z-49 glass border-b border-gray-800">
             <div class="max-w-6xl mx-auto px-4">
                 <div class="flex items-center justify-between h-12">
                     <!-- Logo -->
                     <div class="flex items-center gap-2">
                         <div class="flex items-center gap-2">
-                            <span class="flex items-center gap-1 px-3 rounded-full bg-blue-100 text-blue-600 text-[13px] blink">
-                                <i class="fas fa-circle text-[6px]"></i>
+                            <span class="flex items-center gap-1 px-3 rounded-full bg-green-500/20 text-green-400 text-[13px] online-glow">
+                                <i class="fas fa-circle text-[6px] animate-pulse"></i>
                                 <span>Online</span>
                             </span>
                         </div>
@@ -325,8 +381,8 @@
                     <!-- Information Link -->
                     <a id="contactLink" href="https://wa.me/6285715989482" 
                        target="_blank" 
-                       class="text-[13px] text-gray-700 hover:text-blue-600 flex items-center gap-1 px-3 hover:gap-2 transition-all duration-200">
-                        <i class="fab fa-whatsapp text-green-500"></i>
+                       class="text-[13px] text-slate-300 hover:text-white flex items-center gap-1 px-3 hover:gap-2 transition-all duration-200">
+                        <i class="fab fa-whatsapp text-green-400"></i>
                         <span>Information Api</span>
                     </a>
                 </div>
@@ -337,115 +393,99 @@
         <div class="h-6"></div>
         
         <!-- Header -->
-        <div class="text-left mb-8">
-            <div class="flex items-center gap-4 mb-4">
-                <div class="w-12 md:w-10 h-12 md:h-10 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
-                    <i class="fas fa-code text-white text-lg"></i>
+        <div class="text-center mb-8 glass-card p-8">
+            <div class="flex items-center justify-center gap-4 mb-4">
+                <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center floating">
+                    <i class="fas fa-code text-white text-2xl"></i>
                 </div>
-                <h1 id="titleApi" class="text-3xl md:text-4xl font-bold gradient-text">Riyan Official API</h1>
+                <h1 id="titleApi" class="text-4xl font-bold gradient-text">Riyan Official API</h1>
             </div>
-            <p id="descApi" class="text-gray-600 text-[14px] mx-auto mb-2">
+            <p id="descApi" class="text-slate-400 text-lg mb-6 mx-auto max-w-2xl">
                 Welcome to Riyan Official API documentation. This interactive interface allows you to explore and test our complete collection of API endpoints in real-time.
             </p>
-        </div>
-        
-        <!-- Stats Panel -->
-        <div class="mb-12">
-            <div class="flex gap-5">
-                <!-- Total Endpoints -->
-                <div class="text-center flex-1 stat-card rounded-lg p-4">
-                    <div class="text-2xl font-bold text-gray-800" id="totalApis">0</div>
-                    <div class="text-[13px] text-gray-500">Endpoints</div>
-                </div>
+            
+            <!-- Stats Panel -->
+            <div class="mb-6">
+                <div class="flex gap-6 justify-center">
+                    <!-- Total Endpoints -->
+                    <div class="text-center flex-1 max-w-[120px]">
+                        <div class="stat-card p-4">
+                            <div class="text-3xl font-bold gradient-text" id="totalApis">0</div>
+                            <div class="text-sm text-slate-400 mt-1">Endpoints</div>
+                        </div>
+                    </div>
 
-                <!-- Total Categories -->
-                <div class="text-center flex-1 stat-card rounded-lg p-4">
-                    <div class="text-2xl font-bold text-gray-800" id="totalCategories">0</div>
-                    <div class="text-[13px] text-gray-500">Categories</div>
-                </div>
+                    <!-- Total Categories -->
+                    <div class="text-center flex-1 max-w-[120px]">
+                        <div class="stat-card p-4">
+                            <div class="text-3xl font-bold gradient-text" id="totalCategories">0</div>
+                            <div class="text-sm text-slate-400 mt-1">Categories</div>
+                        </div>
+                    </div>
 
-                <!-- Battery Status -->
-                <div class="text-center flex-1 stat-card rounded-lg p-4">
-                    <div class="text-2xl font-bold text-gray-800" id="batteryLevel">100%</div>
-                    <div class="text-[13px] text-gray-500">Battery</div>
+                    <!-- Battery Status -->
+                    <div class="text-center flex-1 max-w-[120px]">
+                        <div class="stat-card p-4">
+                            <div class="text-3xl font-bold gradient-text" id="batteryLevel">100%</div>
+                            <div class="text-sm text-slate-400 mt-1">Battery</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Search Bar -->
-        <div class="flex items-center justify-between mb-4">
-            <div class="flex-1 relative">
+        <div class="mb-8">
+            <div class="relative">
                 <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
-                    <span class="material-icons text-gray-400 text-lg">search</span>
+                    <span class="material-icons text-gray-500 text-lg">search</span>
                 </div>
                 <input 
                     type="text" 
                     id="searchInput" 
-                    placeholder="Search API endpoints..." 
-                    class="w-full pl-12 pr-5 py-3 text-sm border rounded-lg bg-white text-gray-800 placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                    placeholder="Search through all API endpoints..." 
+                    class="w-full pl-12 pr-5 py-4 text-sm border glass-card rounded-lg text-slate-300 placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                 >
             </div>
         </div>
 
         <!-- API Content -->
-        <div id="content" class="space-y-4">
+        <div id="content" class="space-y-6">
             <div id="noResults" class="text-center py-16 hidden">
                 <div class="max-w-md mx-auto">
-                    <i class="fas fa-search text-2xl text-gray-400 mb-3"></i>
-                    <h3 class="text-xs text-gray-500 mb-2">No results found</h3>
-                    <p class="text-xxs text-gray-400">Try different keywords</p>
+                    <i class="fas fa-search text-2xl text-slate-500 mb-3"></i>
+                    <h3 class="text-sm text-slate-400 mb-2">No results found</h3>
+                    <p class="text-xs text-slate-500">Try different keywords or browse categories</p>
                 </div>
             </div>
 
-            <div id="apiList" class="space-y-3">
-                <!-- API list will be loaded here dynamically -->
+            <div id="apiList" class="space-y-6">
+                <!-- API list will be loaded here dynamically by script.js -->
             </div>
         </div>
         
         <!-- Footer -->
-        <footer class="mt-12 pt-8 border-t">
-            <p id="footer" class="text-gray-500 text-[15px] text-center mx-auto">
-                © 2025 Riyan Official API • v1.0.0
+        <footer class="mt-16 pt-8 border-t border-slate-800/50">
+            <p id="footer" class="text-slate-400 text-center mx-auto">
+                © 2025 Riyan Official API • v2.0.0
+            </p>
+            <p class="text-xs text-slate-500 text-center mt-2">
+                Powered by cutting-edge technology with premium video background
             </p>
         </footer>
     </main>
-    
-    <script>
-    // Real-Time Clock Function
-    function updateRealTimeClock() {
-        const now = new Date();
-        const hours = now.getHours().toString().padStart(2, '0');
-        const minutes = now.getMinutes().toString().padStart(2, '0');
-        const seconds = now.getSeconds().toString().padStart(2, '0');
-        
-        // Format tanggal
-        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        
-        const dayName = days[now.getDay()];
-        const monthName = months[now.getMonth()];
-        const day = now.getDate();
-        const year = now.getFullYear();
-        
-        // Update clock
-        document.getElementById('realTimeClock').innerHTML = `
-            <i class="fas fa-clock text-blue-500 text-xl"></i>
-            <span>${hours}:${minutes}</span>
-            <span class="text-sm text-blue-400">${seconds}</span>
-        `;
-        
-        // Update date
-        document.getElementById('currentDate').textContent = `${dayName}, ${day} ${monthName} ${year}`;
-    }
 
+    <!-- Toast Container (for script.js) -->
+    <div id="toastContainer"></div>
+
+    <!-- Battery Status Script -->
+    <script>
     // Battery Status Function
     function updateBatteryStatus() {
-        // Check if Battery API is supported
         if ('getBattery' in navigator) {
             navigator.getBattery().then(function(battery) {
                 updateBatteryInfo(battery);
                 
-                // Listen for battery changes
                 battery.addEventListener('levelchange', function() {
                     updateBatteryInfo(battery);
                 });
@@ -455,7 +495,6 @@
                 });
             });
         } else {
-            // Fallback for browsers that don't support Battery API
             const batteryLevel = Math.floor(Math.random() * 100) + 1;
             updateBatteryUI(batteryLevel, true);
         }
@@ -469,35 +508,39 @@
 
     function updateBatteryUI(level, isCharging) {
         const batteryElement = document.querySelector('#batteryLevel');
-        
-        // Update level
-        batteryElement.textContent = `${level}%`;
-        
-        // Add color based on battery level
-        if (level > 70) {
-            batteryElement.className = 'text-2xl font-bold text-green-600';
-        } else if (level > 30) {
-            batteryElement.className = 'text-2xl font-bold text-yellow-500';
-        } else {
-            batteryElement.className = 'text-2xl font-bold text-red-500';
+        if (batteryElement) {
+            batteryElement.textContent = `${level}%`;
+            
+            // Update color based on level
+            if (level > 70) {
+                batteryElement.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+            } else if (level > 30) {
+                batteryElement.style.background = 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)';
+            } else {
+                batteryElement.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+            }
         }
     }
 
     // Initialize when page loads
     document.addEventListener('DOMContentLoaded', function() {
-        // Hide loading screen after 500ms
-        setTimeout(() => {
-            document.getElementById('loadingScreen').style.display = 'none';
-        }, 500);
-        
-        // Get battery status
+        // Initialize battery status
         updateBatteryStatus();
         
-        // Update battery status every 30 seconds (for demo/fallback)
+        // Update battery status every 30 seconds
         setInterval(updateBatteryStatus, 30000);
+        
+        // Handle video background
+        const video = document.getElementById('videoBackground');
+        if (video) {
+            video.play().catch(e => {
+                console.log("Video autoplay prevented, showing fallback");
+            });
+        }
     });
     </script>
 
+    <!-- Your existing script.js -->
     <script src="/script.js"></script>
 
 </body>
