@@ -30,45 +30,32 @@
         }
     </script>
     <style>
-        .glass {
-            backdrop-filter: blur(16px) saturate(180%);
-            background: rgba(23, 25, 35, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.125);
-        }
-        .loader {
-            width: 28px;
-            height: 28px;
-            border: 2px solid #4a5568;
-            border-top: 2px solid #e2e8f0;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
+        .glass { backdrop-filter: blur(16px) saturate(180%); background: rgba(23,25,35,0.85); border: 1px solid rgba(255,255,255,0.125); }
+        .loader { width: 28px; height: 28px; border: 2px solid #4a5568; border-top: 2px solid #e2e8f0; border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* Nebula gradient text */
+        /* Neon gradient text ungu-biru */
         .gradient-text {
-            background: linear-gradient(135deg, #6a0dad 0%, #0a0f1b 50%, #1e3a8a 100%);
+            background: linear-gradient(90deg, #a855f7, #3b82f6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
+        /* Button GET biru */
         .btn-get {
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
             color: white;
             padding: 0.5rem 1rem;
             border-radius: 8px;
             font-weight: 500;
             transition: all 0.3s ease;
         }
-        .btn-get:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.4);
-        }
+        .btn-get:hover { transform: translateY(-1px); box-shadow: 0 10px 25px -5px rgba(59,130,246,0.4); }
 
-        .status-ready { background: rgba(16, 185, 129, 0.1); color: #10b981; }
-        .status-update { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
-        .status-error { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+        .status-ready { background: rgba(16,185,129,0.1); color: #10b981; }
+        .status-update { background: rgba(245,158,11,0.1); color: #f59e0b; }
+        .status-error { background: rgba(239,68,68,0.1); color: #ef4444; }
         .blink { animation: blink 2s infinite; }
         @keyframes blink { 0%,100%{opacity:1;}50%{opacity:0.5;} }
 
@@ -76,46 +63,16 @@
         .copy-btn { transition: all 0.2s ease; }
         .copy-btn:hover { background: rgba(255,255,255,0.1); }
 
-        .toast {
-            position: fixed;
-            bottom: 80px;
-            right: 20px;
-            background: rgba(23,25,35,0.9);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
-            padding: 12px 16px;
-            font-size: 0.80rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            z-index: 1000;
-            animation: slideIn 0.3s ease;
-            backdrop-filter: blur(10px);
-            max-width: 300px;
-        }
-        .light .toast {
-            background: rgba(255,255,255,0.9);
-            border: 1px solid rgba(0,0,0,0.1);
-            color: #1e293b;
-        }
+        .toast { position: fixed; bottom:80px; right:20px; background: rgba(23,25,35,0.9); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:12px 16px; font-size:0.80rem; display:flex; align-items:center; gap:8px; z-index:1000; animation: slideIn 0.3s ease; backdrop-filter: blur(10px); max-width:300px; }
+        .light .toast { background: rgba(255,255,255,0.9); border:1px solid rgba(0,0,0,0.1); color:#1e293b; }
         @keyframes slideIn { from{transform:translateX(100%);opacity:0;} to{transform:translateX(0);opacity:1;} }
 
-        .light { background: #0a0f1b; color: #f8fafc; }
+        .light { background: #0a0f1b; color: #e0e7ff; }
         .light .glass { background: rgba(255,255,255,0.85); border:1px solid rgba(0,0,0,0.125);}
         .light .loader { border:2px solid #cbd5e1; border-top:2px solid #475569; }
 
-        .response-media-container {
-            min-height: 300px;
-            max-height: 500px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            border-radius: 12px;
-            overflow: hidden;
-            background: #000814;
-        }
-        .response-media-container video { width: 100%; height: 100%; object-fit: cover; }
+        .response-media-container { min-height:300px; max-height:500px; display:flex; align-items:center; justify-content:center; width:100%; border-radius:12px; overflow:hidden; background: #000814; }
+        .response-media-container video { width:100%; height:100%; object-fit:cover; }
 
         .highlight { background-color: rgba(245,158,11,0.2); color:#f59e0b; }
 
@@ -147,14 +104,12 @@
         <div class="fixed top-0 left-0 right-0 z-49 bg-gray-900/95 backdrop-blur-md border-b border-gray-800">
             <div class="max-w-6xl mx-auto px-4">
                 <div class="flex items-center justify-between h-12">
-                    <!-- Logo -->
                     <div class="flex items-center gap-2">
                         <span class="flex items-center gap-1 px-3 rounded-full bg-green-500/10 text-green-400 text-[13px] blink">
                             <i class="fas fa-circle text-[6px]"></i>
                             <span>Online</span>
                         </span>
                     </div>
-                    <!-- Information Link -->
                     <a id="contactLink" href="https://wa.me/6285715989482" 
                        target="_blank" 
                        class="text-[13px] text-slate-300 hover:text-white flex items-center gap-1 px-3 hover:gap-2 transition-all duration-200">
@@ -165,7 +120,6 @@
             </div>
         </div>
 
-        <!-- Spacer -->
         <div class="h-6"></div>
 
         <!-- Header -->
@@ -176,8 +130,8 @@
                 </div>
                 <h1 id="titleApi" class="text-3xl md:text-4xl font-bold gradient-text">Riyan Official API</h1>
             </div>
-            <p id="descApi" class="text-slate-400 text-[14px] mx-auto mb-2">
-                Welcome to Riyan Official API documentation. This interactive interface allows you to explore and test our complete collection of API endpoints in real-time.
+            <p id="descApi" class="gradient-text text-[14px] mx-auto mb-2">
+                Welcome to Riyan Official API documentation. Explore and test our complete collection of API endpoints in real-time.
             </p>
         </div>
 
@@ -185,15 +139,15 @@
         <div class="mb-12">
             <div class="flex gap-5">
                 <div class="text-center flex-1">
-                    <div class="text-2xl font-bold text-white" id="totalApis">0</div>
+                    <div class="text-2xl font-bold gradient-text" id="totalApis">0</div>
                     <div class="text-[13px] text-slate-400">Endpoints</div>
                 </div>
                 <div class="text-center flex-1">
-                    <div class="text-2xl font-bold text-white" id="totalCategories">0</div>
+                    <div class="text-2xl font-bold gradient-text" id="totalCategories">0</div>
                     <div class="text-[13px] text-slate-400">Categories</div>
                 </div>
                 <div class="text-center flex-1">
-                    <div class="text-2xl font-bold text-white" id="batteryLevel">100%</div>
+                    <div class="text-2xl font-bold gradient-text" id="batteryLevel">100%</div>
                     <div class="text-[13px] text-slate-400">Battery</div>
                 </div>
             </div>
@@ -210,12 +164,7 @@
                 <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
                     <span class="material-icons text-gray-500 text-lg">search</span>
                 </div>
-                <input 
-                    type="text" 
-                    id="searchInput" 
-                    placeholder="Search API endpoints..." 
-                    class="w-full pl-12 pr-5 py-3 text-sm border border-gray-700 bg-gray-800 text-slate-300 placeholder-slate-500 focus:outline-none focus:border-indigo-500"
-                >
+                <input type="text" id="searchInput" placeholder="Search API endpoints..." class="w-full pl-12 pr-5 py-3 text-sm border border-gray-700 bg-gray-800 gradient-text placeholder:text-blue-300 focus:outline-none focus:border-indigo-500">
             </div>
         </div>
 
@@ -229,50 +178,22 @@
                 </div>
             </div>
             <div id="apiList" class="space-y-3">
-                <!-- Example GET button -->
                 <button class="btn-get">GET</button>
             </div>
         </div>
 
-        <!-- Footer -->
         <footer class="mt-12 pt-4 border-t border-gray-800">
-            <p id="footer" class="text-slate-400 text-[15px] text-center mx-auto">
-                © 2025 Riyan Official API • v1.0.0
-            </p>
+            <p id="footer" class="gradient-text text-[15px] text-center mx-auto">© 2025 Riyan Official API • v1.0.0</p>
         </footer>
     </main>
 
     <script>
-    // Battery Status Function
     function updateBatteryStatus() {
-        if ('getBattery' in navigator) {
-            navigator.getBattery().then(function(battery) {
-                updateBatteryInfo(battery);
-                battery.addEventListener('levelchange', function(){ updateBatteryInfo(battery); });
-                battery.addEventListener('chargingchange', function(){ updateBatteryInfo(battery); });
-            });
-        } else {
-            const batteryLevel = Math.floor(Math.random()*100)+1;
-            updateBatteryUI(batteryLevel, true);
-        }
+        if('getBattery' in navigator){navigator.getBattery().then(function(battery){updateBatteryInfo(battery);battery.addEventListener('levelchange',function(){updateBatteryInfo(battery);});battery.addEventListener('chargingchange',function(){updateBatteryInfo(battery);});});}else{const batteryLevel=Math.floor(Math.random()*100)+1;updateBatteryUI(batteryLevel,true);}
     }
-    function updateBatteryInfo(battery) {
-        const level = Math.round(battery.level*100);
-        const isCharging = battery.charging;
-        updateBatteryUI(level, isCharging);
-    }
-    function updateBatteryUI(level,isCharging){
-        const batteryElement = document.querySelector('#batteryLevel');
-        batteryElement.textContent = `${level}%`;
-        batteryElement.classList.remove('battery-high','battery-medium','battery-low');
-        if(level>60) batteryElement.classList.add('battery-high');
-        else if(level>30) batteryElement.classList.add('battery-medium');
-        else batteryElement.classList.add('battery-low');
-    }
-    document.addEventListener('DOMContentLoaded', function(){
-        updateBatteryStatus();
-        setInterval(updateBatteryStatus,30000);
-    });
+    function updateBatteryInfo(battery){const level=Math.round(battery.level*100);const isCharging=battery.charging;updateBatteryUI(level,isCharging);}
+    function updateBatteryUI(level,isCharging){const batteryElement=document.querySelector('#batteryLevel');batteryElement.textContent=`${level}%`;batteryElement.classList.remove('battery-high','battery-medium','battery-low');if(level>60) batteryElement.classList.add('battery-high');else if(level>30) batteryElement.classList.add('battery-medium');else batteryElement.classList.add('battery-low');}
+    document.addEventListener('DOMContentLoaded',function(){updateBatteryStatus();setInterval(updateBatteryStatus,30000);});
     </script>
 
     <script src="/script.js"></script>
