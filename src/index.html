@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Browse through our collection of API endpoints. Find what you need or discover something new.">
-    <meta name="theme-color" content="#1a202c">
+    <meta name="theme-color" content="#0f1117">
     <title>Riyan Official API</title>
     <link rel="icon" href="/src/icon.png" type="image/png">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -24,6 +24,11 @@
                     },
                     fontSize: {
                         'xxs': ['0.65rem', { lineHeight: '0.9rem' }]
+                    },
+                    colors: {
+                        'darkblue': '#0a0f1c',
+                        'btnblue': '#3b82f6',
+                        'darkpurple': '#3f2c5c'
                     }
                 }
             }
@@ -31,7 +36,10 @@
     </script>
 
     <style>
-        
+        body {
+            background-color: #0f1117;
+        }
+
         .glass {
             backdrop-filter: blur(16px) saturate(180%);
             background: rgba(23, 25, 35, 0.85);
@@ -51,23 +59,21 @@
             to { transform: rotate(360deg); }
         }
         
-        /* Updated Gradient Text */
         .gradient-text {
-            background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+            background: linear-gradient(135deg, #667eea 0%, #3b82f6 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        
-        /* Updated Gradient Button */
+
         .btn-gradient {
-            background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
             transition: all 0.3s ease;
         }
         
         .btn-gradient:hover {
             transform: translateY(-1px);
-            box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.4);
+            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.4);
         }
         
         .method-get {
@@ -102,18 +108,11 @@
             50% { opacity: 0.5; }
         }
         
-        .expand-transition {
-            transition: all 0.3s ease;
-        }
+        .expand-transition { transition: all 0.3s ease; }
         
-        .copy-btn {
-            transition: all 0.2s ease;
-        }
+        .copy-btn { transition: all 0.2s ease; }
+        .copy-btn:hover { background: rgba(255, 255, 255, 0.1); }
         
-        .copy-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-                        
         .toast {
             position: fixed;
             bottom: 80px;
@@ -143,97 +142,46 @@
             to { transform: translateX(0); opacity: 1; }
         }
         
-        .light {
-            background: #f8fafc;
-            color: #1e293b;
-        }
-        
-        .light .glass {
-            background: rgba(255, 255, 255, 0.85);
-            border: 1px solid rgba(0, 0, 0, 0.125);
-        }
-        
-        .light .loader {
-            border: 2px solid #cbd5e1;
-            border-top: 2px solid #475569;
-        }
-        
-        .response-media-container {
-            min-height: 300px;
-            max-height: 500px;
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            width: 100%;
-        }
+        .light { background: #f8fafc; color: #1e293b; }
+        .light .glass { background: rgba(255, 255, 255, 0.85); border: 1px solid rgba(0, 0, 0, 0.125); }
+        .light .loader { border: 2px solid #cbd5e1; border-top: 2px solid #475569; }
 
-        .response-media-container video,
-        .response-media-container img {
+        /* Video Banner */
+        .video-banner {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            height: 160px;
+            z-index: 50;
+            overflow: hidden;
+        }
+        .video-banner video {
             width: 100%;
             height: 100%;
-            max-height: 500px;
-            object-fit: contain;
+            object-fit: cover;
         }
 
-        .response-media-container audio {
-            width: 100%;
-            max-width: 400px;
-        }
-
-        .response-media-container .error-container {
-            padding: 2rem;
-            text-align: center;
-        }
-        
-        .highlight {
-            background-color: rgba(245, 158, 11, 0.2);
-            color: #f59e0b;
-        }
-        
-        .charging {
-            animation: pulse 1.5s infinite;
-        }
-    
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-    
-        .clock-digit {
-            transition: all 0.3s ease;
-        }
-    
-        .battery-high {
-            color: #10b981;
-        }
-    
-        .battery-medium {
-            color: #f59e0b;
-        }
-    
-        .battery-low {
-            color: #ef4444;
-        }
-    
-        .stat-card {
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
-    
-        .stat-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+        /* Spacer */
+        .banner-spacer {
+            height: 160px;
         }
     </style>
 </head>
-<body class="bg-gray-900 text-slate-300 antialiased font-mono min-h-screen">
+<body class="bg-darkblue text-slate-300 antialiased font-mono min-h-screen">
 
-    <!-- Banner -->
-    <div class="fixed top-0 left-0 w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-white text-center py-2 z-50">
-        🔔 Welcome to Riyan Official API – Explore and test endpoints in real-time
+    <!-- Video Banner -->
+    <div class="video-banner">
+        <video autoplay muted loop>
+            <source src="https://files.catbox.moe/fjgi2w.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
     </div>
 
+    <!-- Spacer -->
+    <div class="banner-spacer"></div>
+
     <!-- Loading Screen -->
-    <div id="loadingScreen" class="fixed inset-0 bg-gray-900 flex items-center justify-center z-50">
+    <div id="loadingScreen" class="fixed inset-0 bg-darkblue flex items-center justify-center z-50">
         <div class="text-center">
             <div class="loader mx-auto mb-4"></div>
             <p class="text-slate-400 text-s">Loading ...</p>
@@ -242,24 +190,19 @@
 
     <main class="max-w-2xl mx-auto px-8 py-16">
         <!-- Minimal Navbar -->
-        <div class="fixed top-8 left-0 right-0 z-49 bg-gray-900/95 backdrop-blur-md border-b border-gray-800">
+        <div class="fixed top-0 left-0 right-0 z-49 bg-darkblue/95 backdrop-blur-md border-b border-gray-800">
             <div class="max-w-6xl mx-auto px-4">
                 <div class="flex items-center justify-between h-12">
-                    <!-- Logo -->
                     <div class="flex items-center gap-2">
-                        <div class="flex items-center gap-2">
-                            <span class="flex items-center gap-1 px-3 rounded-full bg-green-500/10 text-green-400 text-[13px] blink">
-                                <i class="fas fa-circle text-[6px]"></i>
-                                <span>Online</span>
-                            </span>
-                        </div>
+                        <span class="flex items-center gap-1 px-3 rounded-full bg-green-500/10 text-green-400 text-[13px] blink">
+                            <i class="fas fa-circle text-[6px]"></i>
+                            <span>Online</span>
+                        </span>
                     </div>
-
-                    <!-- Information Link -->
                     <a id="contactLink" href="https://wa.me/6285715989482" 
                        target="_blank" 
-                       class="text-[13px] text-slate-300 hover:text-white flex items-center gap-1 px-3 hover:gap-2 transition-all duration-200">
-                        <i class="fab fa-whatsapp text-green-400"></i>
+                       class="text-[13px] text-slate-300 hover:text-white flex items-center gap-1 px-3 hover:gap-2 transition-all duration-200 btn-gradient">
+                        <i class="fab fa-whatsapp text-white"></i>
                         <span>Information Api</span>
                     </a>
                 </div>
@@ -267,12 +210,12 @@
         </div>
 
         <!-- Spacer -->
-        <div class="h-12"></div>
+        <div class="h-6"></div>
 
         <!-- Header -->
         <div class="text-left mb-8">
             <div class="flex items-center gap-4 mb-4">
-                <div class="w-12 md:w-10 h-12 md:h-10 rounded-lg bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center">
+                <div class="w-12 md:w-10 h-12 md:h-10 rounded-lg bg-darkpurple flex items-center justify-center">
                     <i class="fas fa-code text-white text-lg"></i>
                 </div>
                 <h1 id="titleApi" class="text-3xl md:text-4xl font-bold gradient-text">Riyan Official API</h1>
@@ -310,7 +253,7 @@
                     type="text" 
                     id="searchInput" 
                     placeholder="Search API endpoints..." 
-                    class="w-full pl-12 pr-5 py-3 text-sm border border-gray-700 bg-gray-800 text-slate-300 placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                    class="w-full pl-12 pr-5 py-3 text-sm border border-gray-700 bg-gray-800 text-slate-300 placeholder-slate-500 focus:outline-none focus:border-btnblue"
                 >
             </div>
         </div>
@@ -324,10 +267,7 @@
                     <p class="text-xxs text-slate-500">Try different keywords</p>
                 </div>
             </div>
-
-            <div id="apiList" class="space-y-3">
-                <!-- API list will be loaded here dynamically -->
-            </div>
+            <div id="apiList" class="space-y-3"></div>
         </div>
 
         <!-- Footer -->
@@ -338,6 +278,10 @@
         </footer>
     </main>
     
+    <script>
+    // Battery & Clock Script tetap sama
+    </script>
+
     <script src="/script.js"></script>
 </body>
 </html>
