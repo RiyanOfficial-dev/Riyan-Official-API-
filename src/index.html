@@ -31,16 +31,7 @@
     </script>
 
     <style>
-        /* Banner Styles */
-        .top-banner {
-            background: linear-gradient(90deg, #4f46e5, #6366f1);
-            color: white;
-            font-size: 0.85rem;
-            text-align: center;
-            padding: 0.5rem 1rem;
-        }
-
-        /* Existing Styles */
+        
         .glass {
             backdrop-filter: blur(16px) saturate(180%);
             background: rgba(23, 25, 35, 0.85);
@@ -60,6 +51,7 @@
             to { transform: rotate(360deg); }
         }
         
+        /* Updated Gradient Text */
         .gradient-text {
             background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
             -webkit-background-clip: text;
@@ -67,6 +59,7 @@
             background-clip: text;
         }
         
+        /* Updated Gradient Button */
         .btn-gradient {
             background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
             transition: all 0.3s ease;
@@ -120,8 +113,7 @@
         .copy-btn:hover {
             background: rgba(255, 255, 255, 0.1);
         }
-
-        /* Toast */
+                        
         .toast {
             position: fixed;
             bottom: 80px;
@@ -150,8 +142,22 @@
             from { transform: translateX(100%); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
         }
-
-        /* Media display */
+        
+        .light {
+            background: #f8fafc;
+            color: #1e293b;
+        }
+        
+        .light .glass {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(0, 0, 0, 0.125);
+        }
+        
+        .light .loader {
+            border: 2px solid #cbd5e1;
+            border-top: 2px solid #475569;
+        }
+        
         .response-media-container {
             min-height: 300px;
             max-height: 500px;
@@ -161,16 +167,11 @@
             width: 100%;
         }
 
-        .response-media-container video {
+        .response-media-container video,
+        .response-media-container img {
             width: 100%;
             height: 100%;
             max-height: 500px;
-            object-fit: contain;
-        }
-
-        .response-media-container img {
-            max-width: 100%;
-            max-height: 100%;
             object-fit: contain;
         }
 
@@ -183,12 +184,51 @@
             padding: 2rem;
             text-align: center;
         }
+        
+        .highlight {
+            background-color: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+        }
+        
+        .charging {
+            animation: pulse 1.5s infinite;
+        }
+    
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    
+        .clock-digit {
+            transition: all 0.3s ease;
+        }
+    
+        .battery-high {
+            color: #10b981;
+        }
+    
+        .battery-medium {
+            color: #f59e0b;
+        }
+    
+        .battery-low {
+            color: #ef4444;
+        }
+    
+        .stat-card {
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+    
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-slate-300 antialiased font-mono min-h-screen">
-    
-    <!-- Top Banner -->
-    <div class="top-banner">
+
+    <!-- Banner -->
+    <div class="fixed top-0 left-0 w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-white text-center py-2 z-50">
         🔔 Welcome to Riyan Official API – Explore and test endpoints in real-time
     </div>
 
@@ -202,16 +242,20 @@
 
     <main class="max-w-2xl mx-auto px-8 py-16">
         <!-- Minimal Navbar -->
-        <div class="fixed top-10 left-0 right-0 z-49 bg-gray-900/95 backdrop-blur-md border-b border-gray-800">
+        <div class="fixed top-8 left-0 right-0 z-49 bg-gray-900/95 backdrop-blur-md border-b border-gray-800">
             <div class="max-w-6xl mx-auto px-4">
                 <div class="flex items-center justify-between h-12">
+                    <!-- Logo -->
                     <div class="flex items-center gap-2">
-                        <span class="flex items-center gap-1 px-3 rounded-full bg-green-500/10 text-green-400 text-[13px] blink">
-                            <i class="fas fa-circle text-[6px]"></i>
-                            <span>Online</span>
-                        </span>
+                        <div class="flex items-center gap-2">
+                            <span class="flex items-center gap-1 px-3 rounded-full bg-green-500/10 text-green-400 text-[13px] blink">
+                                <i class="fas fa-circle text-[6px]"></i>
+                                <span>Online</span>
+                            </span>
+                        </div>
                     </div>
 
+                    <!-- Information Link -->
                     <a id="contactLink" href="https://wa.me/6285715989482" 
                        target="_blank" 
                        class="text-[13px] text-slate-300 hover:text-white flex items-center gap-1 px-3 hover:gap-2 transition-all duration-200">
@@ -223,13 +267,77 @@
         </div>
 
         <!-- Spacer -->
-        <div class="h-16"></div>
+        <div class="h-12"></div>
 
-        <!-- Rest of content (header, stats, search, API list, footer) remains unchanged -->
-        <!-- ...copy all your previous HTML content here from header down to footer... -->
+        <!-- Header -->
+        <div class="text-left mb-8">
+            <div class="flex items-center gap-4 mb-4">
+                <div class="w-12 md:w-10 h-12 md:h-10 rounded-lg bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center">
+                    <i class="fas fa-code text-white text-lg"></i>
+                </div>
+                <h1 id="titleApi" class="text-3xl md:text-4xl font-bold gradient-text">Riyan Official API</h1>
+            </div>
+            <p id="descApi" class="text-slate-400 text-[14px] mx-auto mb-2">
+                Welcome to Riyan Official API documentation. This interactive interface allows you to explore and test our complete collection of API endpoints in real-time.
+            </p>
+        </div>
 
+        <!-- Stats Panel -->
+        <div class="mb-12">
+            <div class="flex gap-5">
+                <div class="text-center flex-1">
+                    <div class="text-2xl font-bold text-white" id="totalApis">0</div>
+                    <div class="text-[13px] text-slate-400">Endpoints</div>
+                </div>
+                <div class="text-center flex-1">
+                    <div class="text-2xl font-bold text-white" id="totalCategories">0</div>
+                    <div class="text-[13px] text-slate-400">Categories</div>
+                </div>
+                <div class="text-center flex-1">
+                    <div class="text-2xl font-bold text-white" id="batteryLevel">100%</div>
+                    <div class="text-[13px] text-slate-400">Battery</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex-1 relative">
+                <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                    <span class="material-icons text-gray-500 text-lg">search</span>
+                </div>
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="Search API endpoints..." 
+                    class="w-full pl-12 pr-5 py-3 text-sm border border-gray-700 bg-gray-800 text-slate-300 placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                >
+            </div>
+        </div>
+
+        <!-- API Content -->
+        <div id="content" class="space-y-4">
+            <div id="noResults" class="text-center py-16 hidden">
+                <div class="max-w-md mx-auto">
+                    <i class="fas fa-search text-2xl text-slate-500 mb-3"></i>
+                    <h3 class="text-xs text-slate-400 mb-2">No results found</h3>
+                    <p class="text-xxs text-slate-500">Try different keywords</p>
+                </div>
+            </div>
+
+            <div id="apiList" class="space-y-3">
+                <!-- API list will be loaded here dynamically -->
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-12 pt-4 border-t border-gray-800">
+            <p id="footer" class="text-slate-400 text-[15px] text-center mx-auto">
+                © 2025 Riyan Official API • v1.0.0
+            </p>
+        </footer>
     </main>
-
+    
     <script src="/script.js"></script>
 </body>
 </html>
